@@ -31,7 +31,7 @@ function Header() {
   };
 
   return (
-    <div className="flex items-center justify-between p-4 bg-gray-100 w-full shadow-sm">
+    <div className="flex items-center justify-between p-4 bg-gray-100 w-full ">
       <div className="flex items-center space-x-6">
         {/* Logo ve Navigation */}
         <div className="flex items-center space-x-4">
