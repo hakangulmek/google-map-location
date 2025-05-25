@@ -2,6 +2,7 @@
 import CategoryList from "./component/home/categoryList";
 import RangeSelect from "./component/home/rangeSelect";
 import SelectRating from "./component/home/selectedRating";
+import GoogleMapView from "./component/home/googleMapView";
 
 export default function Home() {
   return (
@@ -11,7 +12,9 @@ export default function Home() {
         <RangeSelect />
         <SelectRating />
       </div>
-      <div className="col-span-3">Second</div>
+      <div className="col-span-3">
+        <GoogleMapView />
+      </div>
     </div>
   );
 }
