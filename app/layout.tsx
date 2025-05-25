@@ -9,6 +9,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import Header from "./component/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,16 +37,20 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <header className="flex justify-end items-center p-4 gap-4 h-16">
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+          <header className="flex items-center  p-4 bg-gray-100">
+            <Header />
           </header>
-          {children}
+          <main className="container mx-auto p-4">
+            <h2 className="text-2xl font-semibold mb-4">Welcome to the App</h2>
+            {children}
+          </main>
+          <footer className="flex items-center justify-center p-4 bg-gray-100">
+            <p className="text-sm text-gray-600">
+              © {new Date().getFullYear()} Google Map Location. All rights
+              reserved.
+            </p>
+          </footer>
+          {/* Render the children components */}
         </body>
       </html>
     </ClerkProvider>

@@ -1,11 +1,26 @@
+// middleware.ts (projenizin root klasöründe)
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher(["/sign-in(.*)"]);
+// Korunması gereken route'ları tanımlayın
+const isProtectedRoute = createRouteMatcher([
+  "/dashboard(.*)",
+  "/profile(.*)",
+  "/admin(.*)",
+  // Diğer korumalı route'larınızı buraya ekleyin
+]);
 
 export default clerkMiddleware(async (auth, req) => {
-  if (!isPublicRoute(req)) {
-    await auth.protect();
+  // Sadece korumalı route'larda authentication gerekli
+  if (isProtectedRoute(req)) {
+    const { userId } = await auth();
+    if (!userId) {
+      // Redirect to sign-in page if not authenticated
+      return Response.redirect(new URL("/sign-in", req.url));
+    }
   }
+
+  // Diğer tüm route'lar serbestçe erişilebilir
+  // Sign-out sonrası otomatik yönlendirme yapılmaz
 });
 
 export const config = {
