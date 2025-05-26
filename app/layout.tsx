@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
+import React from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import Header from "./component/header";
+import { LocationProvider } from "@/contex/locationContex";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,17 +32,18 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <header className="flex items-center  p-4 bg-gray-100">
-            <Header />
-          </header>
-          <main className="container mx-auto p-4">{children}</main>
-          <footer className="flex items-center justify-center p-4 bg-gray-100">
-            <p className="text-sm text-gray-600">
-              © {new Date().getFullYear()} Google Map Location. All rights
-              reserved.
-            </p>
-          </footer>
-          {/* Render the children components */}
+          <LocationProvider>
+            <header className="flex items-center p-4 bg-gray-100">
+              <Header />
+            </header>
+            <main className="container mx-auto p-4">{children}</main>
+            <footer className="flex items-center justify-center p-4 bg-gray-100">
+              <p className="text-sm text-gray-600">
+                © {new Date().getFullYear()} Google Map Location. All rights
+                reserved.
+              </p>
+            </footer>
+          </LocationProvider>
         </body>
       </html>
     </ClerkProvider>
