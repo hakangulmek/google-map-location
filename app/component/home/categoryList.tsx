@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import Data from "./../../../data/data";
-function categoryList() {
-  const [categories, setCategories] = useState(Data.CategoryListData);
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+
+function CategoryList({
+  selectedCategory,
+  onCategorySelect,
+}: {
+  selectedCategory: string | null;
+  onCategorySelect: (categoryName: string) => void;
+}) {
+  const categories = Data.CategoryListData;
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">Categories</h2>
@@ -17,11 +23,11 @@ function categoryList() {
                 text-[13px]
                  border-purple-400
                 ${
-                  selectedCategory == index ? "grayscale-0 border-[1px]" : null
+                  selectedCategory === item.name
+                    ? "grayscale-0 border-[1px]"
+                    : ""
                 }`}
-            onClick={() => {
-              setSelectedCategory(index);
-            }}
+            onClick={() => onCategorySelect(item.name)}
           >
             <img src={item.icon} alt={item.name} width={36} height={36} />
             {item.name}
@@ -32,4 +38,4 @@ function categoryList() {
   );
 }
 
-export default categoryList;
+export default CategoryList;
